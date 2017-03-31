@@ -10,6 +10,9 @@ namespace CardGameProto
     {
         static void Main(string[] args)
         {
+//            var deck = new Deck(new []{new });
+//            var player = new Player();
+
         }
     }
 }

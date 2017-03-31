@@ -42,8 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Card.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="Effect.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="ICurable.cs" />
+    <Compile Include="IDurable.cs" />
+    <Compile Include="IInstant.cs" />
+    <Compile Include="InstantCard.cs" />
+    <Compile Include="IReactive.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactiveCard.cs" />
+    <Compile Include="Resource.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
