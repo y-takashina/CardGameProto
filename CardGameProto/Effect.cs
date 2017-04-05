@@ -18,8 +18,8 @@ namespace CardGameProto
 
         public DamageEffect(Durable target, int count)
         {
-            Count = count;
             Target = target;
+            Count = count;
         }
 
         public override bool Execute()
@@ -34,9 +34,10 @@ namespace CardGameProto
     {
         public Curable Target { get; set; }
 
-        public CureEffect(Curable target)
+        public CureEffect(Curable target, int count)
         {
             Target = target;
+            Count = count;
         }
 
         public override bool Execute()
@@ -45,5 +46,15 @@ namespace CardGameProto
             Target.Increment(Count);
             return true;
         }
+    }
+
+    enum TargetType
+    {
+        Card,
+        Effect,
+        Field,
+        Graveyard,
+        Player,
+        Resource,
     }
 }
