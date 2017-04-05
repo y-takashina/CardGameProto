@@ -19,10 +19,12 @@ namespace CardGameProto
             _level1 = level1;
             _level2 = level2;
             _level3 = level3;
+            Left = new List<Card>();
         }
 
         public void Initialize()
         {
+            Left.Clear();
             Left.AddRange(_level0.SelectMany(id => Enumerable.Repeat(new Card(id), 6)));
             Left.AddRange(_level1.SelectMany(id => Enumerable.Repeat(new Card(id), 3)));
             Left.AddRange(_level2.SelectMany(id => Enumerable.Repeat(new Card(id), 2)));

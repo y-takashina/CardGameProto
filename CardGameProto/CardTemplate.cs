@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace CardGameProto
 {
-    class Template
+    class CardTemplate
     {
         public readonly int Id;
         public readonly int Cost;
         public readonly CardType CardType;
         public readonly IEnumerable<Effect> Effects;
 
-        public Template(int id, int cost, CardType cardType, IEnumerable<Effect> effects)
+        public CardTemplate(int id, int cost, CardType cardType, IEnumerable<Effect> effects)
         {
             Id = id;
             Cost = cost;

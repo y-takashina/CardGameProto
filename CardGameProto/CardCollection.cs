@@ -11,7 +11,10 @@ namespace CardGameProto
     {
         protected List<Card> Left;
 
-        public Card this[int i] => Left[i];
+        public CardCollection()
+        {
+            Left = new List<Card>();
+        }
 
         public override int Duration
         {
@@ -19,9 +22,13 @@ namespace CardGameProto
             protected set { throw new InvalidOperationException("Duration of Deck is determined by `Left.Count()`. Cannot be set explicitly."); }
         }
 
-        public override void Decrement(int count = 1) => Left.RemoveRange(0, count);
+        public override void Decrement(int count = 1)
+        {
+            if (Duration < count) count = Duration;
+            Left.RemoveRange(0, count);
+        }
 
-        public void Add(IEnumerable<Card> cards)
+        public void AddRange(IEnumerable<Card> cards)
         {
             Left.AddRange(cards);
         }
@@ -64,6 +71,8 @@ namespace CardGameProto
             RemoveAt(index);
             return card;
         }
+
+        public Card this[int i] => Left[i];
 
         IEnumerator IEnumerable.GetEnumerator()
         {

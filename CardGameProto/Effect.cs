@@ -24,7 +24,7 @@ namespace CardGameProto
 
         public override bool Execute()
         {
-            if (Duration < 0) return false;
+            if (Duration == 0) return false;
             Target.Decrement(Count);
             return true;
         }
@@ -41,7 +41,7 @@ namespace CardGameProto
 
         public override bool Execute()
         {
-            if (Duration < 0) return false;
+            if (Duration == 0) return false;
             Target.Increment(Count);
             return true;
         }

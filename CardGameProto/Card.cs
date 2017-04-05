@@ -18,9 +18,12 @@ namespace CardGameProto
         {
             Id = id;
             IsInstanced = false;
+            Effects = new List<Effect>();
         }
 
         public void Instanciate() => IsInstanced = true;
+
+        public override string ToString() => $"Id: {Id}, Cost: {Cost}, Type: {CardType}";
     }
 
     enum CardType

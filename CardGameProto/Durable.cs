@@ -10,6 +10,11 @@ namespace CardGameProto
     abstract class Durable
     {
         public virtual int Duration { get; protected set; }
-        public virtual void Decrement(int count = 1) => Duration -= count;
+
+        public virtual void Decrement(int count = 1)
+        {
+            Duration -= count;
+            if (Duration < 0) Duration = 0;
+        }
     }
 }

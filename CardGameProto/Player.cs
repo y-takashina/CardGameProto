@@ -27,40 +27,71 @@ namespace CardGameProto
 
         public void BeginPhase()
         {
-            Hand.Add(Deck.Take(4));
-            foreach (var card in Hand) Console.Write($"{card}, ");
+            Console.WriteLine("===== Begin phase =====");
+
+            Hand.AddRange(Deck.Take(4));
+
+            Console.WriteLine("Hand:");
+            foreach (var card in Hand) Console.WriteLine(card);
+            PrintStatus();
+
+            Console.WriteLine();
         }
 
         public void ActionPhase()
         {
+            Console.WriteLine("===== Action phase =====");
+
             var line = Console.ReadLine();
-            while (!string.IsNullOrEmpty(line))
+            while (!string.IsNullOrEmpty(line) && int.TryParse(line, out int command) && Hand.Duration > command)
             {
-                var command = int.Parse(line);
-                Field.Add(Hand.TakeAt(command));
+                Console.WriteLine($"{Hand[command].Id} was instansiated.");
+                var card = Hand.TakeAt(command);
+                Field.Add(card);
+                if (card.CardType == CardType.Instant)
+                {
+                    foreach (var effect in card.Effects) effect.Execute();
+                }
                 line = Console.ReadLine();
             }
+
+            Console.WriteLine("Field:");
+            foreach (var card in Field) Console.WriteLine(card);
+
+            Console.WriteLine();
         }
 
         public void EndPhase()
         {
+            Console.WriteLine("===== End phase =====");
+
             Decrement();
+            Hand.Decrement();
             Resource.Decrement();
+            var removed = new List<Card>();
             foreach (var card in Field)
             {
-                foreach (var effect in card.Effects)
-                {
-                    effect.Execute();
-                }
-            }
-            foreach (var card in Field)
-            {
+                foreach (var effect in card.Effects) effect.Execute();
                 card.Decrement();
-                if (card.Duration < 0) Field.Remove(card);
+                if (card.Duration == 0) removed.Add(card);
+            }
+            foreach (var card in removed)
+            {
+                Console.WriteLine($"{card.Id} was deleted.");
+                Field.Remove(card);
                 Graveyard.Add(card);
             }
-            foreach (var card in Field) Console.Write($"{card}, ");
-            Console.WriteLine("---------------------------------");
+
+            Console.WriteLine("Field:");
+            foreach (var card in Field) Console.WriteLine(card);
+            PrintStatus();
+
+            Console.WriteLine();
+        }
+
+        public void PrintStatus()
+        {
+            Console.WriteLine($"Deck: {Deck.Duration}, Resource: {Resource.Duration}, Hand: {Hand.Duration}, Graveyard: {Graveyard.Duration}");
         }
     }
 }

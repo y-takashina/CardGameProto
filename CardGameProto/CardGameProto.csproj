@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Template.cs" />
+    <Compile Include="EffectTemplate.cs" />
+    <Compile Include="Scene.cs" />
+    <Compile Include="CardTemplate.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardCollection.cs" />
     <Compile Include="Deck.cs" />
