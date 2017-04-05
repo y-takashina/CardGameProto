@@ -6,19 +6,44 @@ using System.Threading.Tasks;
 
 namespace CardGameProto
 {
-    class Effect : IDurable
+    abstract class Effect : Durable
     {
-        public int Duration { get; set; }
-        public IDurable Target { get; set; }
-        public Func<IDurable, bool> Func { get; set; }
+        public int Count { get; set; }
+        public abstract bool Execute();
+    }
 
-        public Effect(IDurable target, Func<IDurable, bool> func)
+    class DamageEffect : Effect
+    {
+        public Durable Target { get; set; }
+
+        public DamageEffect(Durable target, int count)
         {
+            Count = count;
             Target = target;
-            Func = func;
         }
 
-        public void Damage() => Duration--;
-        public bool Execute() => Duration >= 0 && Func(Target);
+        public override bool Execute()
+        {
+            if (Duration < 0) return false;
+            Target.Decrement(Count);
+            return true;
+        }
+    }
+
+    class CureEffect : Effect
+    {
+        public Curable Target { get; set; }
+
+        public CureEffect(Curable target)
+        {
+            Target = target;
+        }
+
+        public override bool Execute()
+        {
+            if (Duration < 0) return false;
+            Target.Increment(Count);
+            return true;
+        }
     }
 }

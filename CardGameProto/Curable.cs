@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CardGameProto
 {
-    interface IInstant
+    class Curable : Durable
     {
-        IEnumerable<Effect> InstantEffects { get; set; }
+        public virtual void Increment(int count = 1) => Duration += count;
     }
 }

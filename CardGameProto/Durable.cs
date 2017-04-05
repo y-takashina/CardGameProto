@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CardGameProto
 {
-    interface IDurable
+    abstract class Durable
     {
-        int Duration { get; set; }
-        void Damage();
+        public virtual int Duration { get; protected set; }
+        public virtual void Decrement(int count = 1) => Duration -= count;
     }
 }
